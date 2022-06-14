@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+		<title>{title}</title>
+    </head>
+    <body>
+		<p> name : {name} </p>
+		<p> surname : {surname} </p>
+		<p> age : {age} </p>
+		<p> profession : {profession} </p>
+		<p> TEST : {age} {surname} {profession} </p>
+    </body>
+</html>

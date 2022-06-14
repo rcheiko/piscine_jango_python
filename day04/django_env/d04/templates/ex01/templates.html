@@ -1,0 +1,27 @@
+{% extends 'ex01/base.html' %}
+
+{% block title %}
+<title>{{title}}</title>
+{% endblock title %}
+
+{% block content %}
+            <h1>Block :</h1>
+            <p>Dans cet exemple, la balise block définit trois blocs que les gabarits enfants peuvent remplir.<br>La balise block ne fait que signaler au moteur de gabarits qu’un gabarit enfant peut surcharger ces portions du gabarit.</p>
+            <h1>Loops for in :</h1>
+            <p>To create and use for loop in Django, we generally use the “for” template tag.<br>This tag helps to loop over the items in the given array, and the item is made available in the context variable.</p>
+            <h1>if control structures.</h1>
+            <p>La balise { % if % } évalue une variable et si celle-ci vaut True (c’est-à-dire qu’elle existe,<br>n’est pas vide et ne contient pas la valeur booléenne faux), le contenu du bloc est affiché</p>
+            <h1></h1>
+            <p>Les noms de variables peuvent contenir des lettres (A-Z), des chiffres (0-9), des soulignements et des points (mais elles ne peuvent pas commencer par un soulignement).<br>Les points ont une signification particulière dans le rendu des gabarits. Un point dans un nom de variable indique l’accès à un sous-élément.<br>Notez que « bar » dans une expression de gabarit comme {{ foo.bar }} est interprété comme une chaîne littérale et même si une variable « bar » existe dans le contexte du gabarit, elle ne sera pas appelée</p>
+            <ul>
+                <li>
+                    Accès dictionnaire. Exemple : foo["bar"]
+                </li>
+                <li>
+                    Accès attribut. Exemple : foo.bar
+                </li>
+                <li>
+                    Accès par index de liste. Exemple : foo[bar]
+                </li>
+            </ul>
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load index %}
+
+{% block content %}
+<h3>Current discussions</h3>
+{% for channel in page.object_list %}
+<table>
+    <tr>
+        <td>
+            <a class="discussions-button" href="/chat/{{channel.id}}">{{usernames|index:forloop.counter0}}</a>
+        </td>
+        <td>
+            {% with last_messages|index:forloop.counter0 as last_message %}
+                <p>{% if last_message %}{{last_message.msg}} - {{last_message.date}} - {% if last_message.received %}Received{% else %}Sent{% endif %}{% else %}No Message yet{% endif %}</p>
+            {% endwith %}
+        </td>
+    </tr>
+</table>
+{% endfor %}
+<div class="page-links">
+    {% if page.has_previous %}
+        <a href="?page={{page.previous_page_number}}">Previous page</a>
+    {% endif %}
+    {% if page.has_next %}
+        <a href="?page={{page.next_page_number}}">Next page</a>
+    {% endif %}
+</div>
+
+{% endblock content %}

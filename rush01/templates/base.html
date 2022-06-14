@@ -1,0 +1,43 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        {% block title %}{% endblock title %}
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="{% static 'style.css' %}">
+
+        {% block style %}{% endblock style %}
+    </head>
+{% load static %}
+    <body>
+        <header>
+            <nav>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    {% if request.user.is_authenticated %}
+                    <li>Logged as {{request.user.username}}</li>
+                    <li><a href="/logout">Logout</a></li>
+                    <li><a href="/profile">Profile</a></li>
+                    <li><a href="/forum">Forum</a></li>
+                    <li><a href="/discussions">Discussions</a></li>
+                    <li><a href="/invite">Invite</a></li>
+                    <li><a href="/profile_user">Profile_users</a></li>
+                    {% else %}
+                    <li><a href="/login">Login</a></li>
+                    <li><a href="/register">Register</a></li>
+                    {% endif %}
+                    {% if request.user.is_authenticated and request.user.is_staff %}
+                    <li><a href="/staff">Staff Page</a></li>
+                    {% endif %}
+                    {% block nav %}{% endblock nav %}
+                </ul>
+            </nav>
+            {% block content %}{% endblock content %}
+        </header>
+    </body>
+</html>

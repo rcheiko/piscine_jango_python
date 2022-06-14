@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+
+{% block title %}<title>Favorite Article</title>{% endblock title %}
+
+{% block content %}
+
+{% for i in object_list %}
+
+    {% if i.user.id == request.user.id %}
+
+    <p><a href="{% url 'publication_detail' pk=i.article.id %}">{{i.article.title}}</a></p>
+
+    {% endif %}
+
+{% endfor %}
+
+{% endblock %}

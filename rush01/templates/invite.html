@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<form method="POST">
+    {% csrf_token %}
+    <label>Enter username to start chat: </label>
+    <input type="text" name="invite"/>
+</form>
+<p>{{error}}</p>
+{% endblock content %}

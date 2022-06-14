@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+
+{% block title %}<title>Details of Article</title>{% endblock title %}
+
+
+{% block content %}
+
+
+
+<div style="text-align:center;">
+
+    <h2 data={{details.id}} id="article_id">{{details.title}}</h2>
+
+    <p>{{details.content}}</p>
+    <h5>CREATED : {{details.created}}</h5>
+    <h5>Author : {{details.author.username}}</h5>
+    <h5>id : {{details.id}}</h5>
+<hr>
+<br>
+
+<label for="commentaire_post">comment the article :</label>
+
+<input type="text" class="commentaire_post" name="commentaire_post" required>
+
+<input class="input_commentaire" type="submit" value="Comment the article">
+
+</div>
+
+<br>
+<hr>
+
+<h3> Section Commentaire :</h3>
+
+<hr>
+
+    {% for comment in All_comments %}
+
+    {% if comment.comment == None %}
+
+        {% include 'recursive.html' %}
+
+    {% endif %}
+    
+    {% endfor %}
+
+<script type="text/javascript">
+
+    $ ( document ).ready(function() {
+
+        $('.input_comment').click(function() {
+            console.log($(this).prev().attr("data"))
+            $.ajax ({
+                type: "POST",
+                url: "/comment_post/",
+                dataType: "json",
+                data:{
+                        "commentaire" : $(this).prev().prev().val(),
+                        "c_value" : $(this).prev().attr("data"),
+                        "article_id" : $('#article_id').attr("data"),
+                    },
+                success: function(data){
+                }
+            })
+        })
+
+        $('.input_commentaire').click(function() {
+            $.ajax ({
+                type: "POST",
+                url: "/comment_post_first/",
+                dataType: "json",
+                data:{  
+                        "commentaire" : $(this).prev().val(),
+                        "article_id" : $('#article_id').attr("data"),
+                    },
+                success: function(data){
+            }
+            })
+        })
+    })
+
+
+    $.ajaxSetup({ 
+        beforeSend: function(xhr, settings) {
+            function getCookie(name) {
+                var cookieValue = null;
+                if (document.cookie && document.cookie != '') {
+                    var cookies = document.cookie.split(';');
+                    for (var i = 0; i < cookies.length; i++) {
+                        var cookie = jQuery.trim(cookies[i]);
+                        // Does this cookie string begin with the name we want?
+                        if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                            break;
+                        }
+                    }
+                }
+                return cookieValue;
+            }
+            if (!(/^http:.*/.test(settings.url) || /^https:.*/.test(settings.url))) {
+                // Only send the token to relative URLs i.e. locally.
+                xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+            }
+        } 
+   });
+</script>
+
+{% endblock %}

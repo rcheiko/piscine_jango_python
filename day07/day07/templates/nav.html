@@ -1,0 +1,26 @@
+<ul>
+
+    <li><a href="http://localhost:8000/">Home</a></li>
+    <li><a href="http://localhost:8000/article">Article</a></li>
+{% if request.user.is_authenticated %}
+    {% if request.path == "/publication_list/" %}
+        <li><a href="http://localhost:8000/publish">Publish Article</a></li>
+    {% endif %}
+    <li><a href="http://localhost:8000/publication_list">Publications</a></li>
+    <li><a href="http://localhost:8000/favourite_article">Favourites</a></li>
+    <li><a href="http://localhost:8000/logout">Logout</a></li>
+    <li>Logged as {{request.user.username}}</li>
+{% else %}
+
+
+<form action={% url 'login' %} method="POST">
+    {% csrf_token %}
+    <input type="text" placeholder="Username">
+    <input type="password" placeholder="Password">
+    <input type="submit" value="Login">
+</form>
+        <li><a href="http://localhost:8000/login">Login</a></li>
+        <li><a href="http://localhost:8000/register">Register</a></li>
+
+</ul>
+{% endif %}

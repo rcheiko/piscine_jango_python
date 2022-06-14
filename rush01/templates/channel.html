@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<form id="form">
+    <label name="message">Enter a message: </label>
+    <input type="text" name="message"/>
+</form>
+<div id="messages">
+{% for message in messages %}
+{% include 'message.html' %}
+{% endfor %}
+</div>
+<script type="text/javascript">
+    let url = `ws://${window.location.host}/ws/socket-server/{{channel_id}}`
+
+    const chatSocket = new WebSocket(url)
+
+    chatSocket.onmessage = (e) => {
+        let data = JSON.parse(e.data)
+
+        if (data.type == 'chat') {
+            const messages = document.querySelector("#messages")
+
+            messages.insertAdjacentHTML('beforeend', `<p>${data.message_owner} - ${data.message} - ${data.created} - ${data.owner_id == {{request.user.id}} ? "Sent" : "Received"}</p>`)
+        }
+    }
+
+    let form = document.querySelector("#form")
+    form.addEventListener('submit', (e) => {
+        e.preventDefault()
+        let message = e.target.message.value
+        chatSocket.send(JSON.stringify({
+            'message':message
+        }))
+        form.reset()
+    })
+
+</script>
+{% endblock content %}

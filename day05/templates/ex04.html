@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>ex04</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    </head>
+    <body>
+        <form method="POST">
+            {% csrf_token %}
+
+            <label for="film">Choose a film :</label>
+
+            <select name="sel" id ="film">
+
+            {% for res in form %}
+
+                <option value="{{res}}">{{res}}</option>
+
+            {% endfor %}
+
+            </select>
+
+            <input name="test" type="submit" value="remove">
+        </form>
+    </body>
+</html>

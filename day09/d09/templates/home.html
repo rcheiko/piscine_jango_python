@@ -1,0 +1,103 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>SALUT</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="static/style.css">
+        <script src={% static 'main.js' %} defer></script>
+    </head>
+    <body>
+        <p id="error_login"></p>
+        <p id="logged"></p>
+        <label for="name" id="usernamelabel">Username: </label>
+        <input type="text" name="name" id="name" required>
+
+        <label for="password" id="passwordlabel">Password:</label>
+        <input type="password" id="password" name="password">
+
+        <input id="click_login" type="submit" value="login">
+
+        <input id="logout" type="submit" style="display:none;" value="logout">
+
+        <script type="text/javascript">
+
+
+
+            $ ( document ).ready(function() {
+
+                $('#click_login').click(function() {
+                    $.ajax ({
+                        type: "POST",
+                        url: "/ajax/login_request",
+                        dataType: "json",
+                        data:{  
+                                "name" : $('#name').val(),
+                                "password" : $('#password').val()
+                            },
+                        success: function(data){
+                            $('#error_login').text(data.error_login)
+                            $('#logged').text(data.logged)
+                            $('#logout').show();
+                            $('#name').hide();
+                            $('#password').hide();
+                            $('#click_login').hide();
+                            $('#usernamelabel').hide();
+                            $('#passwordlabel').hide();
+                    }
+                    })
+                })
+            })
+
+            $ ( document ).ready(function() {
+                $('#logout').click(function() {
+                    $.ajax ({
+                        type: "POST",
+                        url: "/logout",
+                        dataType: "json",
+                        data:{},
+                        success: function(data){
+                            $('#logout').hide();
+                            $('#logged').text('')
+                            $('#name').show();
+                            $('#password').show();
+                            $('#click_login').show();
+                            $('#usernamelabel').show();
+                            $('#passwordlabel').show();
+                        }
+                    })
+                })
+            })
+
+            $.ajaxSetup({ 
+                beforeSend: function(xhr, settings) {
+                    function getCookie(name) {
+                        var cookieValue = null;
+                        if (document.cookie && document.cookie != '') {
+                            var cookies = document.cookie.split(';');
+                            for (var i = 0; i < cookies.length; i++) {
+                                var cookie = jQuery.trim(cookies[i]);
+                                // Does this cookie string begin with the name we want?
+                                if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                                    break;
+                                }
+                            }
+                        }
+                        return cookieValue;
+                    }
+                    if (!(/^http:.*/.test(settings.url) || /^https:.*/.test(settings.url))) {
+                        // Only send the token to relative URLs i.e. locally.
+                        xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+                    }
+                } 
+           });
+
+        </script>
+
+    </body>
+</html>

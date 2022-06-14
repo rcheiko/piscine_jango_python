@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% load bootstrap3 %}
+
+{% block title %}
+
+<title>Home</title>
+
+{% endblock title %}
+
+{% block nav %}
+<li>Hello {{username}}!</li>
+{% endblock nav %}
+
+{% block content %}
+
+{% if form %}
+<h4>{{error_tip}}</h4>
+<form method="POST" class="form">
+    {% csrf_token %}
+    {% bootstrap_form form %}
+    {% buttons %}
+        <button type="submit" class="btn btn-primary">Add Tip</button>
+    {% endbuttons %}
+</form>
+{% endif %}
+
+<ol>
+{% for i in tip_content %}
+    <li><ul>
+            <li>{{i.content}}</li>
+            <li>{{i.author}}</li>
+            <li>{{i.date}}</li>
+            <li>Upvotes :{{i.upvotes}} - Downvotes : {{i.downvotes}}</li>
+        </ul>
+{% if request.user.is_authenticated %}
+<a href={% url 'delete' id=i.id %}>delete</a>
+<a href={% url 'upvotes' id=i.id %}>upvotes</a>
+<a href={% url 'downvotes' id=i.id %}>downvotes</a>
+{% endif %}
+    </li>
+<hr>
+{% endfor %}
+</ol>
+{% endblock %}

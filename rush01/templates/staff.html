@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+
+{% block title %}<title>Staff</title>{% endblock title %}
+
+{% block content %}
+
+<h1>ADD ADMIN</h1>
+<ul style="list-style:none;">
+    {% for u in user %}
+    
+    {% if u.is_staff == False %}
+
+    <br>
+    
+    <li>
+        {{u.username}}
+        <a href={% url 'add' id=u.id %}>Add Admin</a>
+    </li>
+
+    <br>
+    <hr>
+
+    {% else %}
+
+    <br>
+
+    <li>
+        {{u.username}}
+        <a href={% url 'delete' id=u.id %}>Delete Admin</a>
+    </li>
+
+    <br>
+    <hr>
+
+    {% endif %}
+
+    
+    {% endfor %}
+</ul>
+
+<br>
+<br>
+
+<h1>ADD SUPER USER</h1>
+<ul style="list-style:none;">
+    {% for u in user %}
+    
+    {% if u.is_superuser == False %}
+
+    <br>
+    
+    <li>
+        {{u.username}}
+        <a href={% url 'add_super' id=u.id %}>Add Super User</a>
+    </li>
+
+    <br>
+    <hr>
+
+    {% else %}
+
+    <br>
+
+    <li>
+        {{u.username}}
+        <a href={% url 'delete_super' id=u.id %}>Delete Super User</a>
+    </li>
+
+    <br>
+    <hr>
+
+    {% endif %}
+
+    
+    {% endfor %}
+</ul>
+{% endblock %}

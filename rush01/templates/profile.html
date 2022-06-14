@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title %}<title>Profile</title>{% endblock title %}
+
+{% block content %}
+<div  style="text-align:center;">
+    <h1>PROFILE</h1>
+
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form }}
+        <input type="submit" value="Submit">
+    </form>
+
+    <br>
+    <hr>
+    <br>
+
+    <ul style="list-style: none;">
+        {% if information.profile_picture %}
+            <li>Profile picture :<img style="width:150px; height:150px;" src="{{information.profile_picture.url}}"/></li><br>
+        {% else %}
+            <li>You don't have profile picture</li><br>
+        {% endif %}
+        <li>Name : {{information.username}}</li>
+        <br>
+        <li>Surname : {{information.last_name}}</li>
+        <br>
+        <li>Email : {{information.email}}</li>
+        <br>
+        <li>description : {{information.description}}</li>
+    </ul>
+    <p>{{info}}</p>
+</div>
+{% endblock %}

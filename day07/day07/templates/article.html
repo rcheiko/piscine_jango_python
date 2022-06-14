@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+
+{% block title %}<title>Article</title>{% endblock title %}
+
+{% block content %}
+<table>
+{% for list in object_list|dictsortreversed:"created" %}
+    <header>
+        <th style="border: 1px solid black;">{{list.title}}</th>
+    </header
+    <tr>
+        <td style="border: 1px solid black;">{{list.author}}</td>
+        {% if list.synopsis|length >= 20 %}
+            <td style="border: 1px solid black;">{{list.synopsis|slice:":20"|add:'...'}}</td>
+        {% else %}
+            <td style="border: 1px solid black;">{{list.synopsis}}</td>
+        {% endif %}
+        <td>Time when it was published : {{list.created|timesince}}</td>
+        <td><a href={% url 'publication_detail' pk=list.id %}>details</a></td>
+    </tr>
+{% endfor %}
+</table>
+{% endblock %}

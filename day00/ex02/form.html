@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script type="text/javascript" src="popup.js"></script>
+</head>
+<body>
+    <form>
+        <label for="firstname">Firstname :</label>
+        <input type="text" id="firstname" name="fname" value="rcheiko" r><br>
+
+        <label for="name">Name :</label>
+        <input type="text" id="name" name="name" value="rcheiko"><br><br>
+
+        <label for="age">Your age :</label>
+        <input type="number" id="age" name="age"><br>
+
+        <label for="phone">Enter your phone number :</label>
+        <input type="tel" id="phone" name="phone"><br>
+
+        <label for="email">Enter your email:</label>
+        <input type="email" id="email" name="email"><br>
+
+        <label for="student">Student at 42?</label>
+        <input type="checkbox" id="student" name="student"><br>
+
+        <p>Please select your gender :</p>
+        <input type="radio" id="gender_male" name="gender" value="Male">
+        <label for="gender_male">Male</label><br>
+        <input type="radio" id="gender_female" name="gender" value="female">
+        <label for="gender_female">Female</label><br>
+        <input type="radio" id="gender_other" name="gender" value="other">
+        <label for="gender_other">Other</label><br>
+
+        <br><button type="submit" onclick="displayFormContents()">send informations</button>
+    </form>
+</body>
+</html>

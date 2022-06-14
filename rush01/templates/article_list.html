@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block title %}<title>List of all Articles</title>{% endblock title %}
+
+
+{% block content %}
+
+<table style="text-align:center; width:100%">
+
+    <thead>
+        <tr>
+            <th>Title of Article</th>
+            <th>Content</th>
+            <th>Date of creation</th>
+        </tr>
+    </thead>
+    {% for list in object_list %}
+    
+
+
+        <header>
+            <th style="border: 1px solid black;">{{list.title}}</th>
+        </header
+
+        <tr>
+            {% if list.content|length >= 20 %}
+            <td style="border: 1px solid black;">{{list.content|slice:":40"|add:'...'}}</td>
+            {% else %}
+            <td style="border: 1px solid black;">{{list.content}}</td>
+            {% endif %}
+            
+            <td style="border: 1px solid black;">{{list.created}}</td>
+            <td><a href={% url 'article_details' pk=list.id %}>details</a></td>
+        </tr>
+    
+    {% endfor %}
+    </table>
+
+    <div class="pagination">
+        <span class="step-links">
+            {% if page_obj.has_previous %}
+                <a href="?page=1">&laquo; first</a>
+                <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+            {% endif %}
+    
+            <span class="current">
+                Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+            </span>
+    
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}">next</a>
+                <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
+    
+
+{% endblock %}

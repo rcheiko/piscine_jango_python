@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+
+{% block title %}<title>Publication</title>{% endblock title %}
+
+{% block content %}
+<table>
+
+    <tr>
+        <td style="border: 1px solid black;">ID : {{details.id}}</td>
+        <td style="border: 1px solid black;">TITLE : {{details.title}}</td>
+        <td style="border: 1px solid black;">SYNOPSIS : {{details.synopsis}}</td>
+        <td style="border: 1px solid black;">CONTENT : {{details.content}}</td>
+        <td style="border: 1px solid black;">CREATED : {{details.created}}</td>
+        <td style="border: 1px solid black;">AUTHOR_ID : {{details.author_id}}</td>
+        <td>
+            <form method="POST" class="form">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-primary">Add To Favorite</button>
+            </form>
+        </td>
+    </tr>
+
+</table>
+{% endblock %}

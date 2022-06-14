@@ -1,0 +1,54 @@
+<p>Author : {{comment.author.username}}</p>
+<h4>message : {{comment.message}}</h4>
+<p>created : {{comment.created}}</p>
+
+<input type="text" ckass="commentaire_post" name="commentaire_post" required>
+<p type="text" data="{{comment.id}}" id="c_value"></p>
+
+<input class="input_comment" type="submit" value="Comment the comment">
+<ul>
+    {%for ch in comment.get_child %}
+    <li>
+        {%with comment=ch template_name="recursive.html"%}
+            {%include template_name%}
+        {%endwith%}
+    </li>
+    {%endfor%}
+</ul>
+
+<script type="text/javascript">
+
+    $ ( document ).ready(function() {
+        $(".input_comment").each(function() {
+            $(this).click(function(){
+
+            })
+
+    })
+    })
+
+
+    $.ajaxSetup({ 
+        beforeSend: function(xhr, settings) {
+            function getCookie(name) {
+                var cookieValue = null;
+                if (document.cookie && document.cookie != '') {
+                    var cookies = document.cookie.split(';');
+                    for (var i = 0; i < cookies.length; i++) {
+                        var cookie = jQuery.trim(cookies[i]);
+                        // Does this cookie string begin with the name we want?
+                        if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                            break;
+                        }
+                    }
+                }
+                return cookieValue;
+            }
+            if (!(/^http:.*/.test(settings.url) || /^https:.*/.test(settings.url))) {
+                // Only send the token to relative URLs i.e. locally.
+                xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+            }
+        } 
+   });
+</script>
